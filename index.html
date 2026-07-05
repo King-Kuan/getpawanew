@@ -87,14 +87,39 @@ animation:slideDown .8s ease-out;
 }
 
 .logo{
-font-size:1.6rem;
-font-weight:800;
-letter-spacing:.5px;
-background:linear-gradient(45deg,#fff,var(--accent-color));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+    text-decoration:none;
+    font-size:1.6rem;
+    font-weight:800;
+    letter-spacing:.5px;
+    color:#fff;
 }
 
+.logo span{
+    background:linear-gradient(45deg,#ffffff,var(--accent-color));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    filter:
+        drop-shadow(0 0 10px rgba(0,255,204,.25))
+        drop-shadow(0 0 20px rgba(112,0,255,.15));
+    transition:.35s ease;
+}
+
+.logo:hover .logo-icon{
+    transform:rotate(-6deg) scale(1.08);
+}
+
+.logo:hover span{
+    filter:brightness(1.1);
+}
 .nav-links{
 display:flex;
 gap:2rem;
@@ -409,7 +434,61 @@ h1{font-size:2.2rem;}
 <div class="glow-orb orb-2"></div>
 
 <nav>
-<div class="logo">GetPawa</div>
+<a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+            <linearGradient id="gpGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00ffcc"/>
+                <stop offset="100%" stop-color="#7000ff"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Outer ring -->
+        <circle
+            cx="32"
+            cy="32"
+            r="28"
+            fill="none"
+            stroke="url(#gpGradient)"
+            stroke-width="4"
+        />
+
+        <!-- Stylized G -->
+        <path
+            d="M42 23
+               A13 13 0 1 0 42 41
+               H34"
+            fill="none"
+            stroke="url(#gpGradient)"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+        <!-- P stem -->
+        <path
+            d="M34 18V46"
+            stroke="#ffffff"
+            stroke-width="4"
+            stroke-linecap="round"
+        />
+
+        <!-- P bowl -->
+        <path
+            d="M34 18
+               H42
+               A8 8 0 0 1 42 34
+               H34"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+
+    <span>GetPawa</span>
+</a>
 
 <div class="nav-links">
 <a href="#">Features</a>
