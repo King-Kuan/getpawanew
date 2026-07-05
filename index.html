@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GetPawa | Intelligent Financial Books for Modern Businesses</title>
+
+<style>
+:root{
+--bg-color:#060913;
+--text-color:#fff;
+--muted-text:#94a3b8;
+--accent-color:#00ffcc;
+--secondary-accent:#7000ff;
+--card-bg:rgba(255,255,255,.02);
+--card-border:rgba(255,255,255,.06);
+--nav-bg:rgba(6,9,19,.7);
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg-color);
+color:var(--text-color);
+overflow-x:hidden;
+line-height:1.6;
+}
+
+.glow-orb{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+z-index:-1;
+opacity:.15;
+pointer-events:none;
+}
+
+.orb-1{
+top:-10%;
+right:-10%;
+width:50vw;
+height:50vw;
+background:var(--accent-color);
+animation:floatOrb1 20s infinite alternate ease-in-out;
+}
+
+.orb-2{
+bottom:-10%;
+left:-10%;
+width:60vw;
+height:60vw;
+background:var(--secondary-accent);
+animation:floatOrb2 25s infinite alternate ease-in-out;
+}
+
+@keyframes floatOrb1{
+0%{transform:translate(0,0) scale(1);}
+100%{transform:translate(-10%,10%) scale(1.1);}
+}
+
+@keyframes floatOrb2{
+0%{transform:translate(0,0) scale(1);}
+100%{transform:translate(10%,-10%) scale(1.05);}
+}
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:1.5rem 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:var(--nav-bg);
+backdrop-filter:blur(12px);
+z-index:100;
+border-bottom:1px solid var(--card-border);
+animation:slideDown .8s ease-out;
+}
+
+.logo{
+font-size:1.6rem;
+font-weight:800;
+letter-spacing:.5px;
+background:linear-gradient(45deg,#fff,var(--accent-color));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+display:flex;
+gap:2rem;
+align-items:center;
+}
+
+.nav-links a{
+color:var(--muted-text);
+text-decoration:none;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:var(--accent-color);
+}
+
+.dev-badge{
+background:rgba(0,255,204,.08);
+border:1px solid var(--accent-color);
+color:var(--accent-color);
+padding:.4rem 1rem;
+border-radius:50px;
+font-size:.8rem;
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:1.5px;
+animation:pulse 2.5s infinite alternate;
+}
+
+.hero{
+padding:10rem 5% 5rem;
+max-width:1200px;
+margin:auto;
+text-align:center;
+min-height:85vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+h1{
+font-size:4rem;
+font-weight:800;
+line-height:1.15;
+margin-bottom:1.5rem;
+opacity:0;
+transform:translateY(30px);
+animation:fadeUpIn 1s .2s forwards;
+}
+
+h1 span{
+background:linear-gradient(135deg,var(--accent-color),var(--secondary-accent));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+font-size:1.3rem;
+color:var(--muted-text);
+max-width:800px;
+margin-bottom:3rem;
+opacity:0;
+animation:fadeUpIn 1s .4s forwards;
+}
+
+.status-box{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:.8rem;
+opacity:0;
+animation:fadeIn 1s .6s forwards;
+}
+
+.progress-track{
+width:280px;
+height:6px;
+background:rgba(255,255,255,.05);
+border-radius:10px;
+overflow:hidden;
+}
+
+.progress-fill{
+height:100%;
+background:linear-gradient(90deg,var(--secondary-accent),var(--accent-color));
+animation:progressLoop 2.5s infinite ease-in-out;
+}
+
+.status-msg{
+font-size:.85rem;
+color:var(--accent-color);
+text-transform:uppercase;
+letter-spacing:2px;
+}
+
+.info-section{
+padding:5rem 5%;
+max-width:1200px;
+margin:auto;
+}
+
+.section-header{
+text-align:center;
+margin-bottom:4rem;
+}
+
+.section-header h2{
+font-size:2.5rem;
+margin-bottom:1rem;
+}
+
+.section-header p{
+max-width:650px;
+margin:auto;
+color:var(--muted-text);
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:2rem;
+}
+
+.info-card{
+background:var(--card-bg);
+border:1px solid var(--card-border);
+padding:3rem 2rem;
+border-radius:20px;
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.info-card::before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+width:4px;
+height:100%;
+background:linear-gradient(var(--accent-color),var(--secondary-accent));
+opacity:0;
+transition:.3s;
+}
+
+.info-card:hover{
+transform:translateY(-8px);
+background:rgba(255,255,255,.04);
+}
+
+.info-card:hover::before{
+opacity:1;
+}
+
+.card-num{
+color:var(--accent-color);
+font-size:.85rem;
+font-weight:700;
+margin-bottom:1rem;
+text-transform:uppercase;
+}
+
+.info-card h3{
+margin-bottom:1rem;
+}
+
+.info-card p{
+color:var(--muted-text);
+}
+
+.crew-section{
+padding:6rem 5%;
+text-align:center;
+border-top:1px solid var(--card-border);
+}
+
+.crew-wrapper{
+max-width:900px;
+margin:auto;
+padding:4rem 2rem;
+border-radius:30px;
+background:radial-gradient(rgba(112,0,255,.05),transparent);
+border:1px solid var(--card-border);
+}
+
+.crew-tag{
+color:var(--accent-color);
+letter-spacing:3px;
+text-transform:uppercase;
+margin-bottom:1rem;
+}
+
+.crew-wrapper p{
+color:var(--muted-text);
+margin-top:1.5rem;
+}
+
+footer{
+background:#03050b;
+padding:5rem 5% 2rem;
+margin-top:5rem;
+border-top:1px solid var(--card-border);
+}
+
+.footer-grid{
+max-width:1200px;
+margin:0 auto;
+display:grid;
+grid-template-columns:2fr repeat(3,1fr);
+gap:4rem;
+padding-bottom:4rem;
+}
+
+.footer-brand h3{
+font-size:1.6rem;
+margin-bottom:1rem;
+background:linear-gradient(45deg,#fff,var(--accent-color));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.footer-brand p{
+color:var(--muted-text);
+max-width:320px;
+}
+
+.footer-links h4{
+margin-bottom:1rem;
+text-transform:uppercase;
+}
+
+.footer-links ul{
+list-style:none;
+}
+
+.footer-links li{
+margin-bottom:.8rem;
+}
+
+.footer-links a{
+text-decoration:none;
+color:var(--muted-text);
+transition:.3s;
+}
+
+.footer-links a:hover{
+color:var(--accent-color);
+}
+
+.footer-bottom{
+max-width:1200px;
+margin:auto;
+padding-top:2rem;
+border-top:1px solid rgba(255,255,255,.05);
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:1rem;
+color:var(--muted-text);
+font-size:.9rem;
+}
+
+.palace-house{
+color:var(--accent-color);
+font-weight:600;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+100%{transform:scale(1.03);}
+}
+
+@keyframes slideDown{
+from{transform:translateY(-100%);}
+to{transform:translateY(0);}
+}
+
+@keyframes fadeUpIn{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes progressLoop{
+0%{transform:translateX(-100%);width:20%;}
+50%{width:40%;}
+100%{transform:translateX(300%);width:20%;}
+}
+
+@media(max-width:968px){
+.footer-grid{grid-template-columns:1fr 1fr;}
+h1{font-size:2.8rem;}
+}
+
+@media(max-width:640px){
+.footer-grid{grid-template-columns:1fr;}
+.nav-links{display:none;}
+h1{font-size:2.2rem;}
+.footer-bottom{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow-orb orb-1"></div>
+<div class="glow-orb orb-2"></div>
+
+<nav>
+<div class="logo">GetPawa</div>
+
+<div class="nav-links">
+<a href="#">Features</a>
+<a href="#">Architecture</a>
+<a href="#">The Studio</a>
+<div class="dev-badge">Development Phase</div>
+</div>
+</nav>
+
+<section class="hero">
+
+<h1>Get<span>Pawa</span></h1>
+
+<p>
+Providing pristine automated accounting ledgers and performance clarity
+engines for scaling enterprises globally.
+</p>
+
+<div class="status-box">
+<div class="progress-track">
+<div class="progress-fill"></div>
+</div>
+<div class="status-msg">Development in Progress</div>
+</div>
+
+</section>
+
+<section class="info-section">
+
+<div class="section-header">
+<h2>System Architecture</h2>
+<p>
+Built around resilient financial infrastructure with automation,
+performance, and enterprise-grade reliability.
+</p>
+</div>
+
+<div class="info-grid">
+
+<div class="info-card">
+<div class="card-num">01</div>
+<h3>Ledger Engines</h3>
+<p>
+Powerful accounting engines designed to automate bookkeeping while
+maintaining financial accuracy and transparency.
+</p>
+</div>
+
+<div class="info-card">
+<div class="card-num">02</div>
+<h3>Automated Calculators</h3>
+<p>
+Real-time financial calculations, forecasting and business intelligence
+that remove manual complexity.
+</p>
+</div>
+
+<div class="info-card">
+<div class="card-num">03</div>
+<h3>Security Nodes</h3>
+<p>
+Modern encryption, authentication and secure infrastructure protecting
+every financial transaction.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="crew-section">
+
+<div class="crew-wrapper">
+
+<div class="crew-tag">Development Hub</div>
+
+<h2>Building the Financial Infrastructure of Tomorrow</h2>
+
+<p>
+System Map • Status Updates • Beta Registration
+</p>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-grid">
+
+<div class="footer-brand">
+<h3>GetPawa</h3>
+<p>
+Providing pristine automated accounting ledgers and performance clarity
+engines for modern businesses.
+</p>
+</div>
+
+<div class="footer-links">
+<h4>Development Hub</h4>
+<ul>
+<li><a href="#">System Map</a></li>
+<li><a href="#">Status Updates</a></li>
+<li><a href="#">Beta Registration</a></li>
+</ul>
+</div>
+
+<div class="footer-links">
+<h4>Foundry</h4>
+<ul>
+<li><a href="#">Joel Patient</a></li>
+<li><a href="#">The Palace Studio</a></li>
+<li><a href="#">Core Team Members</a></li>
+</ul>
+</div>
+
+<div class="footer-links">
+<h4>Company</h4>
+<ul>
+<li><a href="#">Features</a></li>
+<li><a href="#">Architecture</a></li>
+<li><a href="#">Development</a></li>
+</ul>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+<div>© 2026 GetPawa. All Rights Reserved. Currently structured under private preview.</div>
+
+<div>
+Conceived by
+<span class="palace-house">NISHIMWE Joel Patient</span>
+• Powered by
+<span class="palace-house">The Palace Tech House</span>
+</div>
+</div>
+
+</footer>
+
+</body>
+</html>
